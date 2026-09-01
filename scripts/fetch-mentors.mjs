@@ -44,15 +44,16 @@ async function main() {
 
   const data = await resp.json();
 
+ // The AIRTABLE_VIEW_NAME view already filters to mentors who are
+  // active and have a Calendly link on file, so every record returned
+  // here is treated as usable — no separate "Active" field needed.
   const mentors = (data.records || [])
     .map((r) => ({
       name: r.fields["Display Name"] || "",
       role: r.fields.Role || "",
       slug: r.fields["calendly slug"] || "",
-      active: r.fields.Active !== false, // treat missing checkbox as active
     }))
-    .filter((m) => m.name && m.slug && m.active)
-    .map(({ name, role, slug }) => ({ name, role, slug }));
+    .filter((m) => m.name && m.slug);
 
   const output = {
     mentors,
