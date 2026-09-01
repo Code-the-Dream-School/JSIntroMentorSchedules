@@ -24,7 +24,7 @@ const params = new URLSearchParams({ pageSize: "100" });
 if (AIRTABLE_VIEW_NAME) {
   params.set("view", AIRTABLE_VIEW_NAME);
 } else {
-  params.set("sort[0][field]", "Name");
+  params.set("sort[0][field]", "Display Name");
   params.set("sort[0][direction]", "asc");
 }
 
@@ -46,9 +46,9 @@ async function main() {
 
   const mentors = (data.records || [])
     .map((r) => ({
-      name: r.fields.Name || "",
+      name: r.fields["Display Name"] || "",
       role: r.fields.Role || "",
-      slug: r.fields.Slug || "",
+      slug: r.fields["calendly slug"] || "",
       active: r.fields.Active !== false, // treat missing checkbox as active
     }))
     .filter((m) => m.name && m.slug && m.active)
