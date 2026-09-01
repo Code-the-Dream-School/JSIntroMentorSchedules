@@ -63,10 +63,7 @@
  
     // update header text
     mentorNameEl.textContent = mentor.name;
-    mentorTaglineEl.textContent = mentor.role
-      ? `${mentor.role} · availability for ${currentMonthParam()}`
-      : `Availability for ${currentMonthParam()}`;
- 
+  
     // build the Calendly URL with the current month baked in
     const url = `https://calendly.com/${mentor.slug}?month=${currentMonthParam()}&hide_gdpr_banner=1`;
  
